@@ -6,9 +6,9 @@ import { Request,Response } from "express";
 
 const create_comment_controller= async (req:Request,res:Response)=>{
     try{
-    const c_data = await create_comment_service(req,res);
+    const comment_data = await create_comment_service(req,res);
         res.send({
-            "comment_posted":c_data
+            "comment_posted":comment_data
     });
  }
  catch(err){
@@ -37,8 +37,8 @@ const delete_comment_controller= async (req:Request,res:Response)=>{
 
 const list_comment_controller= async (req:Request,res:Response)=>{
     try{
-    const data = await comment_list_service(req,res);
-        res.send(data);
+    const listdata = await comment_list_service(req,res);
+        res.send(listdata);
  }
  catch(err){
     res.status(500).send("Internal Server error !!")
