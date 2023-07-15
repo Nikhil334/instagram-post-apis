@@ -12,18 +12,18 @@ const create_comment_service = async (req: Request, res: Response) => {
         const data = req.body;
         const islike = req.params.like;
         if (islike != null) {
-            const c_id = req.params.cid;
+            const commentid = req.params.cid;
             //console.log(likedata.totallikes);
-            const updated = await Likes.increment('totallikes', { where: { comment_id: c_id } });
+            const updated = await Likes.increment('totallikes', { where: { comment_id: commentid } });
             return true;
         }
         else {
-            const c_data = await Comments.create(data);
-            console.log(c_data);
-            let updatecomment = await Comment_counts.increment('totalcomments', { where: { photo_id: c_data.photo_id } })
+            const commentdata = await Comments.create(data);
+            console.log(commentdata);
+            let updatecomment = await Comment_counts.increment('totalcomments', { where: { photo_id: commentdata.photo_id } })
             let result = await sqlize.query('insert into likes(totallikes,comment_id) values(:tlike,:cid)',
-                { replacements: { tlike: '0', cid: `${c_data.id}` }, type: QueryTypes.INSERT });
-            return c_data.contents;
+                { replacements: { tlike: '0', cid: `${commentdata.id}` }, type: QueryTypes.INSERT });
+            return commentdata.contents;
         }
     }
     catch (err) {
