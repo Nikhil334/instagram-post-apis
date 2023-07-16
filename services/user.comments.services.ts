@@ -8,8 +8,7 @@ import { Request, Response } from "express";
 /******************************** CREATE COMMENT FUNCTION***********************************/
 
 const create_comment_service = async (req: Request, res: Response) => {
-    try {
-        const data = req.body;
+    try { 
         const islike = req.params.like;
         if (islike != null) {
             const commentid = req.params.cid;
@@ -18,6 +17,7 @@ const create_comment_service = async (req: Request, res: Response) => {
             return true;
         }
         else {
+            const data = req.body;
             const commentdata = await Comments.create(data);
             console.log(commentdata);
             let updatecomment = await Comment_counts.increment('totalcomments', { where: { photo_id: commentdata.photo_id } })
