@@ -7,7 +7,7 @@ const comment_router = express.Router();
 comment_router.route("/").get();
 comment_router.route("/createcomment").post(check_comment_data,create_comment_controller);
 comment_router.route("/deletecomment/:cid").get(delete_comment_controller);
-comment_router.route("/createcomment/:like/:cid").post(create_comment_controller);
+comment_router.route("/createcomment/:like/:cid").get(create_comment_controller);
 comment_router.route("/listout").get(list_comment_controller);
 
 
